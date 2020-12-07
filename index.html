@@ -90,6 +90,11 @@
 			stroke-opacity: 0.5;
 			stroke-width: 1.25px;
 			}
+
+			#map3 {
+				margin-top: 50px;
+			}
+
 		</style>
 		<!-- Mi JavaScript -->
 		<script defer src="./js/graphscript.js" delay></script>
@@ -98,7 +103,7 @@
 		<script defer src="https://cdnjs.cloudflare.com/ajax/libs/d3/6.1.1/d3.min.js"></script>
 		<script defer src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.7.1/d3-tip.min.js"></script>
 		<script src="https://unpkg.com/topojson@3"></script>
-	
+
 		<script src="https://d3js.org/d3.v4.js"></script>
 		<script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
 
@@ -348,7 +353,7 @@
 											Conflicts in the Middle East
 										</div>
 										<div class="mt-15 f-22 text-adaptive" data-aos="zoom-in" data-aos-delay="250">
-											The map below showcases the number, location as well as fatalities of the conflicts in the Middle East region over the past 5 years.
+											Click on the map below that showcases the number, location as well as fatalities of the conflicts in the Middle East region over the past 5 years.
 										</div>
 									</div>
 								</div>
@@ -358,10 +363,13 @@
 							<section class="pt-80 pb-60 bg-light content_21">
 								<div class="container px-xl-0">
 									<div class="row justify-content-center">
+										
 										<div class="col-xl-10 col-lg-11" data-aos="zoom-in" data-aos-delay="0">
-											<img src="i/content_21_img.jpg" alt="" class="img-fluid radius10" srcset="i/content_21_img@2x.jpg 2x">
+											<a href="map.html">
+											<img src="i/mapimg.png" alt="" class="img-fluid radius10" srcset="i/mapimg.png">
+											</a>
 											<div class="mt-10 f-14 semibold text-uppercase sp-20 color-heading text-center text-sm-right">
-												Ryan Loughlin
+												<a href="https://acleddata.com/curated-data-files/">Data Source</a>
 											</div>
 										</div>
 									</div>
@@ -433,8 +441,8 @@
 														<div id="vis">
 															<button id="play-button">Play</button>
 														</div>
-														<svg id="map3" width="750" height="480"></svg>
 														<div id="tooltip"></div>
+														<svg id="map3" width="750" height="480"></svg>
 														<!-- <div class="col-xl-10 col-lg-11" data-aos="zoom-in" data-aos-delay="0">
 															<img src="i/content_21_img.jpg" srcset="i/content_21_img@2x.jpg 2x" alt="" class="img-fluid radius10">
 															<div class="mt-10 f-14 semibold text-uppercase sp-20 color-heading text-center text-sm-right">
@@ -457,8 +465,8 @@
 															</div>
 														</div>
 														<img src="uploads/moresyrian.jpg" alt="" class="w-full radius10" data-aos="zoom-in" data-aos-delay="500" srcset="uploads/moresyrian.jpg 2x">
-														<div class="mt-40 mb-0 action-2 f-14 lh-26 bold text-uppercase sp-20" data-aos="zoom-in" data-aos-delay="750" href="https://wtxnews.com/wp-content/uploads/2018/03/Turkish-soldiers-stand-guard-syrian-refugees-wait-behind-border-fences.jpg">
-															Source
+														<div class="mt-40 mb-0 action-2 f-14 lh-26 bold text-uppercase sp-20" data-aos="zoom-in" data-aos-delay="750">
+															<a href="https://wtxnews.com/wp-content/uploads/2018/03/Turkish-soldiers-stand-guard-syrian-refugees-wait-behind-border-fences.jpg">Image Source</a>
 														</div>
 													</div>
 												</section>
@@ -581,18 +589,19 @@
 				  // .duration(200)
 				  .style("opacity", 1)
 				  .style("stroke-width", "3")
-				const pos = d3.pointer(event, window);
-				console.log(pos)
+				// const pos = d3.pointer(event, window);
+				// console.log(pos)
 				if (d.id=='SYR') {
 				  tooltip = d3.select('#tooltip')
 				  .style('display', 'block')
-				  .style("position", "relative")
+				  .style("position", "absolute")
 				  .style("border", "solid")
 				  .style("border-width", "2px")
 				  .style("border-radius", "5px")
 				  .style("padding", "5px")
-				  .style('top', pos[1]-50 + "px")
-				  .style('left', pos[0]-20 + "px")
+				//   .style('top', pos[1]-50 + "px")
+				//   .style('left', pos[0]-20 + "px")
+				.style("top", "100px")
 				  .style('background-color', 'white')
 				  .style('color', 'black')
 				  .html(`<div style='font-size:15px'> &#9733 ${d.properties.name}</div>`)
@@ -600,13 +609,14 @@
 				}
 				tooltip = d3.select('#tooltip')
 				  .style('display', 'block')
-				  .style("position", "relative")
+				  .style("position", "absolute")
 				  .style("border", "solid")
 				  .style("border-width", "2px")
 				  .style("border-radius", "5px")
 				  .style("padding", "5px")
-				  .style('top', pos[1] + "px")
-				  .style('left', pos[0] + "px")
+				//   .style('top', pos[1] + "px")
+				//   .style('left', pos[0] + "px")
+				.style("top", "100px")
 				  .style('background-color', 'white')
 				  .style('color', 'black')
 				  .html(`<div style='font-size:15px'>Country: ${d.properties.name} <br> Number of refugee: ${getPop(d)}</div>`)
@@ -720,7 +730,8 @@
 					.on("start drag", function() {
 					  // console.log("dragging: ", formatDate(x.invert(currentValue)));
 					  // console.log("d3 event", event.x)
-					  currentValue = event.x - 277;
+					//   currentValue = event.x - 277;
+					currentValue = event.x - 918;
 					  console.log("")
 					  console.log("cursor x value: ", currentValue)
 					  console.log("x.invert value: ", x.invert(currentValue))
