@@ -21,6 +21,91 @@
 		<link href="css/style.min.css" rel="stylesheet" />
 		<!-- jQuery 3.5.1 -->
 		<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+		<!-- Load Vega Lite -->
+		<script src="https://cdn.jsdelivr.net/npm/vega@5.17.0"></script>
+		<script src="https://cdn.jsdelivr.net/npm/vega-lite@4.17.0"></script>
+		<script src="https://cdn.jsdelivr.net/npm/vega-embed@6.12.2"></script>
+		<style media="screen">
+		  /* Add space between Vega-Embed links  */
+		  .vega-actions a {
+			margin-right: 5px;
+		  }
+		</style>
+
+		<style>
+						#play-button {
+			/* position: relative; */
+			display: block;
+			top: 140px;
+			left: 50px;
+			/* margin: 10px; */
+			margin-left: 48%;
+			margin-bottom: 5px;
+			background: #f08080;
+			/* padding-right: 26px; */
+			border-radius: 3px;
+			border: none;
+			color: white;
+			padding: 0 12px;
+			width: 60px;
+			cursor: pointer;
+			height: 30px;
+			}
+
+			#play-button:hover {
+			background-color: #696969;
+			}    
+
+			.ticks {
+			font-size: 10px;
+			}
+
+			.track,
+			.track-inset,
+			.track-overlay {
+			stroke-linecap: round;
+			}
+
+			.track {
+			stroke: #000;
+			stroke-opacity: 0.3;
+			stroke-width: 10px;
+			}
+
+			.track-inset {
+			stroke: #dcdcdc;
+			stroke-width: 8px;
+			}
+
+			.track-overlay {
+			pointer-events: stroke;
+			stroke-width: 50px;
+			stroke: transparent;
+			cursor: crosshair;
+			}
+
+			.handle {
+			fill: #fff;
+			stroke: #000;
+			stroke-opacity: 0.5;
+			stroke-width: 1.25px;
+			}
+		</style>
+		<!-- Mi JavaScript -->
+		<script defer src="./js/graphscript.js" delay></script>
+		<script defer src="./js/deaths.js" delay></script>
+		<!-- Load Javascript files -->
+		<script defer src="https://cdnjs.cloudflare.com/ajax/libs/d3/6.1.1/d3.min.js"></script>
+		<script defer src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.7.1/d3-tip.min.js"></script>
+		<script src="https://unpkg.com/topojson@3"></script>
+	
+		<script src="https://d3js.org/d3.v4.js"></script>
+		<script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+
+		<!-- Milligram CSS
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/milligram/1.4.1/milligram.css"> -->
 	</head> 
 	<body>
 <!-- Navigation Mobile type 1 -->
@@ -196,9 +281,10 @@
 				<section class="pt-100 pb-100 bg-light blog_8">
 					<div class="container px-xl-0">
 						<div class="row justify-content-between align-items-center">
-							<div class="col-lg-7" data-aos="zoom-in" data-aos-delay="0">
+							<div id="line1">line chart 1</div>
+							<!-- <div class="col-lg-7" data-aos="zoom-in" data-aos-delay="0">
 								<img src="i/blog_8_img.jpg" alt="" class="w-full radius10" srcset="i/blog_8_img@2x.jpg 2x">
-							</div>
+							</div> -->
 							<div class="pt-35 pb-35 col-lg-5 col-xl-4">
 								<a href="#" class="mb-10 link color-heading f-14 bold text-uppercase sp-20" data-aos="zoom-in" data-aos-delay="250">
 								</a>
@@ -297,12 +383,13 @@
 									<section class="pt-80 pb-60 bg-light content_21">
 										<div class="container px-xl-0">
 											<div class="row justify-content-center">
-												<div class="col-xl-10 col-lg-11" data-aos="zoom-in" data-aos-delay="0">
+												<div id="deaths"> DEATHS</div>
+												<!-- <div class="col-xl-10 col-lg-11" data-aos="zoom-in" data-aos-delay="0">
 													<img src="i/content_21_img.jpg" srcset="i/content_21_img@2x.jpg 2x" alt="" class="img-fluid radius10">
 													<div class="mt-10 f-14 semibold text-uppercase sp-20 color-heading text-center text-sm-right">
 														Ryan Loughlin
 													</div>
-												</div>
+												</div> -->
 											</div>
 										</div>
 									</section>
@@ -343,12 +430,17 @@
 											<section class="pt-80 pb-60 bg-light content_21">
 												<div class="container px-xl-0">
 													<div class="row justify-content-center">
-														<div class="col-xl-10 col-lg-11" data-aos="zoom-in" data-aos-delay="0">
+														<div id="vis">
+															<button id="play-button">Play</button>
+														</div>
+														<svg id="map3" width="750" height="480"></svg>
+														<div id="tooltip"></div>
+														<!-- <div class="col-xl-10 col-lg-11" data-aos="zoom-in" data-aos-delay="0">
 															<img src="i/content_21_img.jpg" srcset="i/content_21_img@2x.jpg 2x" alt="" class="img-fluid radius10">
 															<div class="mt-10 f-14 semibold text-uppercase sp-20 color-heading text-center text-sm-right">
 																Ryan Loughlin
 															</div>
-														</div>
+														</div> -->
 													</div>
 												</div>
 											</section>
@@ -423,5 +515,340 @@
 		<script src="js/jquery.maskedinput.min.js"></script>
 		<!-- Startup JS (Custom js for all blocks) -->
 		<script src="js/script.js"></script>
+
+		<script>
+			// The svg
+			var svg = d3.select("svg"),
+				width = +svg.attr("width"),
+				height = +svg.attr("height");
+	  
+			// Map and projection
+			var path = d3.geoPath();
+			var projection = d3.geoMercator()
+			  .scale(550)
+			  .center([33,44])
+			  // .translate([width / 2, height / 2]);
+	  
+			// Data and color scale
+			var data = d3.map();
+			// var colorScale = d3.scaleSqrt()
+			//   .domain([0,1000000])
+			//   .range(["grey", "black"]);
+			var colorScale = d3.scaleThreshold()
+			  .domain([0, 10, 100, 1000, 10000, 100000, 500000, 1000000, 5000000, 10000000])
+			  .range(d3.schemeBlues[9]);
+	  
+			// Load external data and boot
+			let q= d3.queue()
+			q.defer(d3.json, "https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world.geojson")
+			  // .defer(d3.csv, "./data/destination.csv", function(d) { data.set(d.Code, d.Total); })
+			  .defer(d3.csv, "./data/destination.csv")
+			  .defer(d3.csv, "./data/raw_unemployment.csv")
+			  .defer(d3.csv, "./data/circles.csv")
+			  .await(ready);
+	  
+			current_year = 2010
+	  
+			function ready(error, topo, destination, unemployment, timeline) {
+			  console.log("year filter is: ", current_year)
+	  
+			  // console.log(topo)
+			  // destination = destination.filter(d=>d.Year==current_year)
+			  // console.log(destination)
+			  // console.log(unemployment)
+			  // console.log(timeline)
+	  
+			  let getPop = function(d) {
+				var dd = destination.filter(d=>d.Year==current_year)
+				detail = dd.filter(i=>i.Code==d.id)[0];
+				if (detail==null) {
+				  count = 0
+				} else {
+				  count = detail.Total
+				}
+				return count;
+			  }
+	  
+			  let mouseOver = function(d) {
+				// console.log(getPop(d))
+				// console.log(d)
+				d3.selectAll(".Country")
+				  // .transition()
+				  // .duration(200)
+				  .style("opacity", 0.5)
+				d3.select(this)
+				  // .transition()
+				  // .duration(200)
+				  .style("opacity", 1)
+				  .style("stroke-width", "3")
+				const pos = d3.pointer(event, window);
+				console.log(pos)
+				if (d.id=='SYR') {
+				  tooltip = d3.select('#tooltip')
+				  .style('display', 'block')
+				  .style("position", "relative")
+				  .style("border", "solid")
+				  .style("border-width", "2px")
+				  .style("border-radius", "5px")
+				  .style("padding", "5px")
+				  .style('top', pos[1]-50 + "px")
+				  .style('left', pos[0]-20 + "px")
+				  .style('background-color', 'white')
+				  .style('color', 'black')
+				  .html(`<div style='font-size:15px'> &#9733 ${d.properties.name}</div>`)
+				  return
+				}
+				tooltip = d3.select('#tooltip')
+				  .style('display', 'block')
+				  .style("position", "relative")
+				  .style("border", "solid")
+				  .style("border-width", "2px")
+				  .style("border-radius", "5px")
+				  .style("padding", "5px")
+				  .style('top', pos[1] + "px")
+				  .style('left', pos[0] + "px")
+				  .style('background-color', 'white')
+				  .style('color', 'black')
+				  .html(`<div style='font-size:15px'>Country: ${d.properties.name} <br> Number of refugee: ${getPop(d)}</div>`)
+			  }
+	  
+			  let mouseLeave = function(d) {
+				d3.selectAll(".Country")
+				  .transition()
+				  .duration(100)
+				  .style("opacity", 1)
+				d3.select(this)
+				  .transition()
+				  .duration(100)
+				  .style("stroke-width", "1")
+				d3.select('#tooltip')
+				  .style('display', 'none');
+			  }
+	  
+			  let getColor = function(d) {
+				console.log("getting color...")
+				if (d.id=='SYR') {
+				  return 'red';
+				}
+				// console.log(d.id)
+				// console.log(destination.filter(i=>i.Code==d.id)[0])
+				var dd = destination.filter(d=>d.Year==current_year)
+				detail = dd.filter(i=>i.Code==d.id)[0]
+				if (detail==null){
+				  total = 0;
+				} else {
+				  // if (detail.Code==='SYR') {
+				  //   console.log("found")
+				  //   return 'red';
+				  // }
+				  total = dd.filter(i=>i.Code==d.id)[0].Total;
+				}
+				return colorScale(total);
+			  }
+	  
+			  // Draw the map
+			  function drawMap(current_year){
+				console.log('drawing year: ', current_year)
+				var temp = svg.append("g")
+				  .selectAll("path")
+				  .data(topo.features)
+				  .enter()
+				  .append("path")
+				  // draw each country
+				  .attr("d", d3.geoPath().projection(projection))
+				temp.merge(temp)
+				  // set the color of each country
+				  .attr("fill", getColor)
+				  .style("stroke", "black")
+				  .attr("class", function(d){
+					return "Country";
+				  })
+				  .style("opacity", 1)
+				  .on("mouseover", mouseOver )
+				  .on("mouseleave", mouseLeave )
+				console.log('drawn...')
+			  }
+	  
+			  drawMap(current_year);
+	  
+			  /////////////////////////////////// Timeline Slider ///////////////////////////////////
+			  var formatDateIntoYear = d3.timeFormat("%Y");
+			  var formatDate = d3.timeFormat("%Y");
+			  var parseDate = d3.timeParse("%Y");
+	  
+			  var startDate = new Date("2009-11-01"),
+				  endDate = new Date("2019-04-01");
+	  
+			  var margin = {top:20, right:20, bottom:20, left:20},
+				  width = 750 - margin.left - margin.right,
+				  height = 100 - margin.top - margin.bottom;
+	  
+			  var svg2 = d3.select("#vis")
+				  .append("svg")
+				  .attr("width", width + margin.left + margin.right)
+				  .attr("height", height + margin.top + margin.bottom);  
+	  
+			  ////////// slider //////////
+	  
+			  var moving = false;
+			  var currentValue = 0;
+			  var targetValue = width;
+	  
+			  var playButton = d3.select("#play-button");
+				  
+			  var x = d3.scaleTime()
+				  .domain([startDate, endDate])
+				  .range([0, targetValue])
+				  .clamp(true);
+	  
+			  var slider = svg2.append("g")
+				  .attr("class", "slider")
+				  .attr("transform", "translate(" + margin.left + "," + height/5 + ")");
+	  
+			  slider.append("line")
+				  .attr("class", "track")
+				  .attr("x1", x.range()[0])
+				  .attr("x2", x.range()[1])
+				.select(function() { return this.parentNode.appendChild(this.cloneNode(true)); })
+				  .attr("class", "track-inset")
+				.select(function() { return this.parentNode.appendChild(this.cloneNode(true)); })
+				  .attr("class", "track-overlay")
+				  .call(d3.drag()
+					.on("start.interrupt", function() {
+					  slider.interrupt(); 
+					})
+					.on("start drag", function() {
+					  // console.log("dragging: ", formatDate(x.invert(currentValue)));
+					  // console.log("d3 event", event.x)
+					  currentValue = event.x - 277;
+					  console.log("")
+					  console.log("cursor x value: ", currentValue)
+					  console.log("x.invert value: ", x.invert(currentValue))
+					  update(x.invert(currentValue)); 
+					  current_year = formatDate(x.invert(currentValue));
+					  console.log("current_year is: ", current_year)
+					  // Redraw Map
+					  drawMap(current_year);
+					})
+				  );
+	  
+			  slider.insert("g", ".track-overlay")
+				  .attr("class", "ticks")
+				  .attr("transform", "translate(0," + 18 + ")")
+				.selectAll("text")
+				  .data(x.ticks(10))
+				  .enter()
+				  .append("text")
+				  .attr("x", x)
+				  .attr("y", 10)
+				  .attr("text-anchor", "middle")
+				  .text(function(d) { return formatDateIntoYear(d); });
+	  
+			  var handle = slider.insert("circle", ".track-overlay")
+				  .attr("class", "handle")
+				  .attr("r", 9);
+	  
+			  var label = slider.append("text")  
+				  .attr("class", "label")
+				  .attr("text-anchor", "middle")
+				  .text(formatDate(startDate))
+				  .attr("transform", "translate(0," + (-25) + ")")
+	  
+			  
+			  ////////// plot //////////
+	  
+			  var dataset;
+	  
+			  var plot = svg2.append("g")
+				  .attr("class", "plot")
+				  .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+	  
+			  // d3.csv("./data/circles.csv", prepare, function(data) {
+				dataset = timeline;
+				// drawPlot(dataset);
+				
+				playButton
+				  .on("click", function() {
+					var button = d3.select(this);
+					if (button.text() == "Pause") {
+					  moving = false;
+					  clearInterval(timer);
+					  // timer = 0;
+					  button.text("Play");
+					} else {
+					  moving = true;
+					  timer = setInterval(step, 100);
+					  button.text("Pause");
+					}
+					console.log("Slider moving: " + moving);
+				  })
+			  // })
+	  
+			  function prepare(d) {
+				d.id = d.id;
+				d.date = parseDate(d.date);
+				return d;
+			  }
+				
+			  function step() {
+				update(x.invert(currentValue));
+				currentValue = currentValue + (targetValue/151);
+				current_year = formatDate(x.invert(currentValue));
+				console.log("current_year is: ", current_year)
+				// Redraw Map
+				drawMap(current_year);
+				if (currentValue > targetValue) {
+				  moving = false;
+				  currentValue = 0;
+				  clearInterval(timer);
+				  // timer = 0;
+				  playButton.text("Play");
+				  console.log("Slider moving: " + moving);
+				}
+			  }
+	  
+			  function drawPlot(data) {
+				var locations = plot.selectAll(".location").data(data);
+	  
+				// if filtered dataset has more circles than already existing, transition new ones in
+				locations.enter()
+				  .append("circle")
+				  .attr("class", "location")
+				  .attr("cx", function(d) { return x(d.date); })
+				  .attr("cy", height/2)
+				  .style("fill", function(d) { return d3.hsl(d.date/1000000000, 0.8, 0.8)})
+				  .style("stroke", function(d) { return d3.hsl(d.date/1000000000, 0.7, 0.7)})
+				  .style("opacity", 0.5)
+				  .attr("r", 8)
+					.transition()
+					.duration(400)
+					.attr("r", 25)
+					  .transition()
+					  .attr("r", 8);
+	  
+				// if filtered dataset has less circles than already existing, remove excess
+				locations.exit()
+				  .remove();
+			  }
+	  
+			  function update(h) {
+				// update position and text of label according to slider scale
+				handle.attr("cx", x(h));
+				label
+				  .attr("x", x(h))
+				  .text(formatDate(h));
+	  
+				// filter data set and redraw plot
+				// console.log("h: ", h)
+				// console.log("dataset: ", dataset)
+				var newData = dataset.filter(function(d) {
+				  return d.date < h;
+				})
+				// drawPlot(newData);
+			  }
+			  ///////////////////////////////////////////////////////////////////////////////////////
+			}
+	  
+		  </script>
 	</body>
 </html>
