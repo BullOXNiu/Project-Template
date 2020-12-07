@@ -33,7 +33,11 @@
 		</style>
 
 		<style>
-						#play-button {
+			#map3 {
+				margin-top: 50px;
+			}
+
+			#play-button {
 			/* position: relative; */
 			display: block;
 			top: 140px;
@@ -433,8 +437,9 @@
 														<div id="vis">
 															<button id="play-button">Play</button>
 														</div>
-														<svg id="map3" width="750" height="480"></svg>
 														<div id="tooltip"></div>
+														<svg id="map3" width="750" height="480"></svg>
+														
 														<!-- <div class="col-xl-10 col-lg-11" data-aos="zoom-in" data-aos-delay="0">
 															<img src="i/content_21_img.jpg" srcset="i/content_21_img@2x.jpg 2x" alt="" class="img-fluid radius10">
 															<div class="mt-10 f-14 semibold text-uppercase sp-20 color-heading text-center text-sm-right">
@@ -581,18 +586,19 @@
 				  // .duration(200)
 				  .style("opacity", 1)
 				  .style("stroke-width", "3")
-				const pos = d3.pointer(event, window);
-				console.log(pos)
+				// const pos = d3.pointer(event, window);
+				// console.log(pos)
 				if (d.id=='SYR') {
 				  tooltip = d3.select('#tooltip')
 				  .style('display', 'block')
-				  .style("position", "relative")
+				  .style("position", "absolute")
 				  .style("border", "solid")
 				  .style("border-width", "2px")
 				  .style("border-radius", "5px")
 				  .style("padding", "5px")
-				  .style('top', pos[1]-50 + "px")
-				  .style('left', pos[0]-20 + "px")
+				//   .style('top', pos[1]-50 + "px")
+				//   .style('left', pos[0]-20 + "px")
+				  .style('top', '100px')
 				  .style('background-color', 'white')
 				  .style('color', 'black')
 				  .html(`<div style='font-size:15px'> &#9733 ${d.properties.name}</div>`)
@@ -600,13 +606,15 @@
 				}
 				tooltip = d3.select('#tooltip')
 				  .style('display', 'block')
-				  .style("position", "relative")
+				  .style("position", "absolute")
 				  .style("border", "solid")
 				  .style("border-width", "2px")
 				  .style("border-radius", "5px")
 				  .style("padding", "5px")
-				  .style('top', pos[1] + "px")
-				  .style('left', pos[0] + "px")
+				//   .style('top', pos[1] + "px")
+				//   .style('left', pos[0] + "px")
+				  .style('top', '100px')
+				//   .style('left', '500px')
 				  .style('background-color', 'white')
 				  .style('color', 'black')
 				  .html(`<div style='font-size:15px'>Country: ${d.properties.name} <br> Number of refugee: ${getPop(d)}</div>`)
