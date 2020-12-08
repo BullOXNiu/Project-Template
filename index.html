@@ -570,7 +570,7 @@
 			//   .domain([0,1000000])
 			//   .range(["grey", "black"]);
 			var colorScale = d3.scaleThreshold()
-			  .domain([0, 10, 100, 1000, 10000, 50000, 100000, 500000, 1000000, 5000000])
+			  .domain([0, 100, 1000, 5000, 10000, 50000, 100000, 500000, 3000000])
 			  .range(d3.schemeBlues[9]);
 	  
 			// Load external data and boot
@@ -912,45 +912,45 @@
 				.attr("stop-color", colorScale(0))
 				.attr("stop-opacity", 1);
 
-			legend.append("stop")
-				.attr("offset", "10%")
-				.attr("stop-color", colorScale(10))
-				.attr("stop-opacity", 1);
+			// legend.append("stop")
+			// 	.attr("offset", "5%")
+			// 	.attr("stop-color", colorScale(10))
+			// 	.attr("stop-opacity", 1);
 
 			legend.append("stop")
 				.attr("offset", "20%")
-				.attr("stop-color", colorScale(100))
-				.attr("stop-opacity", 1);
-
-			legend.append("stop")
-				.attr("offset", "30%")
 				.attr("stop-color", colorScale(1000))
 				.attr("stop-opacity", 1);
-			
-			legend.append("stop")
-				.attr("offset", "40%")
-				.attr("stop-color", colorScale(10000))
-				.attr("stop-opacity", 1);
-			
-			legend.append("stop")
-				.attr("offset", "50%")
-				.attr("stop-color", colorScale(50000))
-				.attr("stop-opacity", 1);
-			
-			legend.append("stop")
-				.attr("offset", "60%")
-				.attr("stop-color", colorScale(100000))
-				.attr("stop-opacity", 1);
 
-			legend.append("stop")
-				.attr("offset", "70%")
-				.attr("stop-color", colorScale(500000))
-				.attr("stop-opacity", 1);
+			// legend.append("stop")
+			// 	.attr("offset", "20%")
+			// 	.attr("stop-color", colorScale(1000))
+			// 	.attr("stop-opacity", 1);
+			
+			// legend.append("stop")
+			// 	.attr("offset", "35%")
+			// 	.attr("stop-color", colorScale(10000))
+			// 	.attr("stop-opacity", 1);
+			
+			// legend.append("stop")
+			// 	.attr("offset", "45%")
+			// 	.attr("stop-color", colorScale(50000))
+			// 	.attr("stop-opacity", 1);
+			
+			// legend.append("stop")
+			// 	.attr("offset", "60%")
+			// 	.attr("stop-color", colorScale(100000))
+			// 	.attr("stop-opacity", 1);
 
-			legend.append("stop")
-				.attr("offset", "80%")
-				.attr("stop-color", colorScale(1000000))
-				.attr("stop-opacity", 1);
+			// legend.append("stop")
+			// 	.attr("offset", "70%")
+			// 	.attr("stop-color", colorScale(500000))
+			// 	.attr("stop-opacity", 1);
+
+			// legend.append("stop")
+			// 	.attr("offset", "80%")
+			// 	.attr("stop-color", colorScale(1000000))
+			// 	.attr("stop-opacity", 1);
 
 			legend.append("stop")
 				.attr("offset", "100%")
@@ -973,8 +973,8 @@
 			// 	.range([0, w-200]);
 
 			var y = d3.scaleThreshold()
-				.domain([0, 10, 100, 1000, 10000, 50000, 100000, 500000, 1000000, 5000000])
-				.range([-1, 0, 100, 200, 300, 400, 500, 550, 600, 650, 700]);
+				.domain([0, 100, 1000, 10000, 100000, 500000, 5000000])
+				.range([-1, 0, 70, 170, 300, 450, 600, 700]);
 
 			var yAxis = d3.axisBottom()
 				.scale(y)
