@@ -34,7 +34,7 @@
 
 		<style>
 			#legend1 {
-				margin-left: 10%;
+				margin-left: 200px;
 			}
 
 			.axis text {
@@ -628,7 +628,7 @@
 				  .style("padding", "5px")
 				//   .style('top', pos[1]-50 + "px")
 				//   .style('left', pos[0]-20 + "px")
-				.style("top", "100px")
+				.style("top", "150px")
 				  .style('background-color', 'white')
 				  .style('color', 'black')
 				  .html(`<div style='font-size:15px'> &#9733 ${d.properties.name}</div>`)
@@ -643,7 +643,7 @@
 				  .style("padding", "5px")
 				//   .style('top', pos[1] + "px")
 				//   .style('left', pos[0] + "px")
-				.style("top", "100px")
+				.style("top", "150px")
 				  .style('background-color', 'white')
 				  .style('color', 'black')
 				  .html(`<div style='font-size:15px'>Country: ${d.properties.name} <br> Number of refugee: ${getPop(d)}</div>`)
@@ -716,7 +716,7 @@
 			  var startDate = new Date("2009-11-01"),
 				  endDate = new Date("2019-04-01");
 	  
-			  var margin = {top:20, right:20, bottom:20, left:20},
+			  var margin = {top:20, right:58, bottom:20, left:20},
 				  width = 750 - margin.left - margin.right,
 				  height = 100 - margin.top - margin.bottom;
 	  
@@ -758,7 +758,7 @@
 					  // console.log("dragging: ", formatDate(x.invert(currentValue)));
 					  // console.log("d3 event", event.x)
 					//   currentValue = event.x - 277;
-					currentValue = event.x - 918;
+					currentValue = event.x - 968;
 					  console.log("")
 					  console.log("cursor x value: ", currentValue)
 					  console.log("x.invert value: ", x.invert(currentValue))
