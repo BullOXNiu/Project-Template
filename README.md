@@ -1,2 +1,2 @@
-# Project-Template
+# Final Project for Visualizations Group 8
  
