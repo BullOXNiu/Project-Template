@@ -33,6 +33,19 @@
 		</style>
 
 		<style>
+			.axis text {
+			font: 10px sans-serif;
+			}
+
+			.axis line, .axis path {
+			fill: none;
+			stroke: #000;
+			shape-rendering: crispEdges;
+			}
+			svg{
+			padding-left: 50px;
+			}
+
 			#map3 {
 				margin-top: 50px;
 			}
@@ -42,7 +55,7 @@
 			display: block;
 			top: 140px;
 			left: 50px;
-			/* margin: 10px; */
+			margin-top: 50px;
 			margin-left: 48%;
 			margin-bottom: 5px;
 			background: #f08080;
@@ -442,10 +455,13 @@
 											<section class="pt-80 pb-60 bg-light content_21">
 												<div class="container px-xl-0">
 													<div class="row justify-content-center">
+														<div id="legend1"></div>
 														<div id="vis">
 															<button id="play-button">Play</button>
 														</div>
+														
 														<div id="tooltip"></div>
+														
 														<svg id="map3" width="750" height="480"></svg>
 														<!-- <div class="col-xl-10 col-lg-11" data-aos="zoom-in" data-aos-delay="0">
 															<img src="i/content_21_img.jpg" srcset="i/content_21_img@2x.jpg 2x" alt="" class="img-fluid radius10">
@@ -547,7 +563,7 @@
 			//   .domain([0,1000000])
 			//   .range(["grey", "black"]);
 			var colorScale = d3.scaleThreshold()
-			  .domain([0, 10, 100, 1000, 10000, 100000, 500000, 1000000, 5000000, 10000000])
+			  .domain([0, 10, 100, 1000, 10000, 50000, 100000, 500000, 1000000, 5000000])
 			  .range(d3.schemeBlues[9]);
 	  
 			// Load external data and boot
@@ -863,6 +879,111 @@
 			  }
 			  ///////////////////////////////////////////////////////////////////////////////////////
 			}
+
+
+			var w = 900, h = 50;
+
+			var key = d3.select("#legend1")
+				.append("svg")
+				.style("display", "block")
+				.style("position", "absolute")
+				.attr("width", w)
+				.attr("height", h);
+
+			var legend = key.append("defs")
+				.append("svg:linearGradient")
+				.attr("id", "gradient")
+				.attr("x1", "0%")
+				.attr("y1", "100%")
+				.attr("x2", "100%")
+				.attr("y2", "100%")
+				.attr("spreadMethod", "pad");
+
+			legend.append("stop")
+				.attr("offset", "0%")
+				// .attr("stop-color", "#f7fcf0")
+				.attr("stop-color", colorScale(0))
+				.attr("stop-opacity", 1);
+
+			legend.append("stop")
+				.attr("offset", "10%")
+				.attr("stop-color", colorScale(10))
+				.attr("stop-opacity", 1);
+
+			legend.append("stop")
+				.attr("offset", "20%")
+				.attr("stop-color", colorScale(100))
+				.attr("stop-opacity", 1);
+
+			legend.append("stop")
+				.attr("offset", "30%")
+				.attr("stop-color", colorScale(1000))
+				.attr("stop-opacity", 1);
+			
+			legend.append("stop")
+				.attr("offset", "40%")
+				.attr("stop-color", colorScale(10000))
+				.attr("stop-opacity", 1);
+			
+			legend.append("stop")
+				.attr("offset", "50%")
+				.attr("stop-color", colorScale(50000))
+				.attr("stop-opacity", 1);
+			
+			legend.append("stop")
+				.attr("offset", "60%")
+				.attr("stop-color", colorScale(100000))
+				.attr("stop-opacity", 1);
+
+			legend.append("stop")
+				.attr("offset", "70%")
+				.attr("stop-color", colorScale(500000))
+				.attr("stop-opacity", 1);
+
+			legend.append("stop")
+				.attr("offset", "80%")
+				.attr("stop-color", colorScale(1000000))
+				.attr("stop-opacity", 1);
+
+			legend.append("stop")
+				.attr("offset", "100%")
+				// .attr("stop-color", "#084081")
+				.attr("stop-color", colorScale(5000000))
+				.attr("stop-opacity", 1);
+
+			key.append("rect")
+				.attr("width", w - 200)
+				.attr("height", h - 30)
+				.style("fill", "url(#gradient)")
+				.attr("transform", "translate(10,10)");
+
+			// var colorScale = d3.scaleThreshold()
+			//   .domain([0, 10, 100, 1000, 10000, 50000, 100000, 500000, 1000000, 5000000])
+			//   .range(d3.schemeBlues[9]);
+
+			// var y = d3.scaleLinear()
+			// 	.domain([0, 5000000])
+			// 	.range([0, w-200]);
+
+			var y = d3.scaleThreshold()
+				.domain([0, 10, 100, 1000, 10000, 50000, 100000, 500000, 1000000, 5000000])
+				.range([-1, 0, 100, 200, 300, 400, 500, 550, 600, 650, 700]);
+
+			var yAxis = d3.axisBottom()
+				.scale(y)
+				// .ticks(10);
+
+			key.append("g")
+				.attr("class", "y axis")
+				.attr("transform", "translate(10,30)")
+				.call(yAxis)
+				.append("text")
+				.attr("transform", "rotate(-90)")
+				.attr("y", 0)
+				.attr("dy", ".71em")
+				.style("text-anchor", "end")
+				.text("axis title");
+
 	  
 		  </script>
 	</body>
