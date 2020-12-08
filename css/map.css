@@ -14,3 +14,71 @@ body,html{
 #events{
    position:relative;
 }
+
+
+.d3-tip {
+  line-height: 1;
+  font-weight: bold;
+  padding: 12px;
+  z-index:1000000;
+  background-color: rgba(255,255,255,1) !important; 
+  opacity:1;
+  border:2px solid #66CDAA; 
+  border-radius: 4px; 
+  -moz-border-radius: 4px; 
+  -webkit-border-radius: 4px;
+  -moz-box-shadow:0 0 10px rgba(0, 0, 0, .5);
+  -webkit-box-shadow:0 0 10px rgba(0, 0, 0, .5);
+  box-shadow:0 0 10px rgba(0, 0, 0, .5);
+  color: #fff;
+  border-radius: 2px;
+  height:200px;
+  overflow-y:auto;
+  width:350px; 
+}
+
+  .d3-tip:after {
+    box-sizing: border-box;
+    display: inline;
+    font-size: 10px;
+    width: 100%;
+    line-height: 1;
+    color: #fff;
+    position: absolute;
+  }
+
+
+  /* Nrthward tooltips */
+  .d3-tip.n:after {
+    content: "\25BC";
+    margin: -1px 0 0 0;
+    top: 100%;
+    left: 0;
+    text-align: center;
+  }
+
+  /* Eastward tooltips */
+  .d3-tip.e:after {
+    content: "\25C0";
+    margin: -4px 0 0 0;
+    top: 50%;
+    left: -8px;
+  }
+
+  /* Southward tooltips */
+  .d3-tip.s:after {
+    content: "\25B2";
+    margin: 0 0 1px 0;
+    top: -8px;
+    left: 0;
+    text-align: center;
+  }
+
+  /* Westward tooltips */
+  .d3-tip.w:after {
+    content: "\25B6";
+    margin: -4px 0 0 -1px;
+    top: 50%;
+    left: 100%;
+  }
+
