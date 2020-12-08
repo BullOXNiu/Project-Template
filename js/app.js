@@ -3,15 +3,16 @@ height = window.innerHeight - 10 - 20
 document.querySelector("#map").style.height = (height * .90)  + "px";
 document.querySelector("#options").style.height = height + "px";
 document.querySelector("#bargraph").style.height = height + "px";
-document.querySelector("#map").style.width = (width *  .74)  + "px";
-//document.querySelector("#options").style.width = (width *.19) + "px";
+document.querySelector("#map").style.width = (width *  .55)  + "px";
+document.querySelector("#options").style.width = (width *.19) + "px";
 document.querySelector("#bargraph").style.width = (width *.26) + "px";
 document.querySelector("#values").style.width = (width *  .30)  + "px";
-width = width * .72;
+width = width * .53;
 
 years = null;
 
 bubbleradius = 2;
+legends = {};
 
 tooltipfields  = {"ACTOR1":{"includeintip":false,title:"Actor - 1",order:20},ACTOR2:{"includeintip":false,title:"Actor - 2",order:20},"ADMIN1":{"includeintip":false,title:"Admin - 1",order:20},"ADMIN2":{"includeintip":false,title:"Admin - 2",order:20},"ADMIN3":{"includeintip":false,title: "",order:20},"ASSOC_ACTOR_1":{"includeintip":false,title:"Associate Actor 1",order:20},"ASSOC_ACTOR_2":{"includeintip":false,title:"Associate Actor 2",order:20},"COUNTRY":{"includeintip":true,title:"Country",order:3},"EVENT_DATE":{"includeintip":true,title:"Event Date",order:1},"EVENT_ID_CNTY":{"includeintip":false,title:"Event Id Country",order:20},"EVENT_ID_NO_CNTY":{"includeintip":true,title:"Event ID Country Number",order:2},"EVENT_TYPE":{"includeintip":true,title: "Event Type",order:6},FATALITIES:{"includeintip":false,title:"Fatalitites",order:8},GEO_PRECISION:{"includeintip":false,title:"Geo Precistion",order:9},"INTER1":{"includeintip":false,title:"Inter 1",order:9},"INTER2":{"includeintip":false,title:"Inter 2",order:10},INTERACTION:{"includeintip":false,title:"Interaction",order:11},ISO:{"includeintip":false,title:"ISO",order:12},LATITUDE:{"includeintip":false,title:"Latitude",order:13},LOCATION:{"includeintip":true,title:"Location",order:5},LONGITUDE:{"includeintip":false,title:"Longitude",order:11},NOTES:{"includeintip":true,title:"Notes",order:12},REGION:{"includeintip":true,title:"Region",order:4},SOURCE:{"includeintip":false,title:"Source",order:13},SOURCE_SCALE:{"includeintip":false,title:"Source Scale",order:14},SUB_EVENT_TYPE:{"includeintip":true,title:"Sub Event Type",order:7},TIMESTAMP:{"includeintip":false,title:"Timestamp",order:14},TIME_PRECISION:{"includeintip":false,title:"Time Precision",order:15},"YEAR":{"includeintip":false,title:"Year",order:9}}
 
@@ -146,8 +147,10 @@ plotMap = (ldata,width,height) =>{
           .attr("cy",function(d){points = projection([parseFloat(d.data[0].LONGITUDE),parseFloat(d.data[0].LATITUDE)]); return points[1] })
           .attr("fill",function(d){
                 if (document.getElementById("events").value == "Event Types"){
+                    legends[d.event] = eventcolor(d.event) 
                     return eventcolor(d.event);  
                 }else{
+                    legends[d.event] = eventcolor(d.sevent) 
                     return eventcolor(d.sevent);  
                 }
           })        
@@ -195,6 +198,15 @@ plotMap = (ldata,width,height) =>{
                tip.html(tiphtml);
                tip.show()
           }); 
+          lhtml = "";
+          d3.select("#options").selectAll('[rel="legend"]').remove();      
+          for (ilegend in legends){
+               lhtml += '<div rel = "legend" style = "width:100%;">';
+               lhtml += '<div style = "float:left;width:10px;border:1px solid;height:10px;display:inline-block;background-color:'+legends[ilegend]+';">'+'</div>'
+               lhtml += '<div style = "position:relative;width:80%;float:;left;font-size:12px;display:inline-block;top:-10px;left:2px;">'+ilegend+"</div>"
+               lhtml += "</div>";
+          } 
+          $("#options").append(lhtml); 
 }
 
 window.onresize = resize
@@ -464,7 +476,6 @@ function changeoption(year){
 
 
 function plotGraph(){
-   d3.select("#countryselected").html(countryselected);
    d3.select("#bargraph").select("svg").remove();
    totalcounts = 0;
    for (imonth  = 0; imonth < graphdata.length; imonth++){
@@ -484,8 +495,11 @@ function plotGraph(){
                 .append("svg")
                 .attr("width", width + margin.left + margin.right)
                 .attr("height", height + margin.top + margin.bottom)
-                .append("g")
-                .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+       
+   svg.append("text").text(countryselected).attr("y","1.1em")
+         
+   svg = svg.append("g")
+      .attr("transform", "translate(" + margin.left + "," + (margin.top+20) + ")")
 
    var xaxis = d3.scaleLinear()
                  .domain([0, totalcounts])
