@@ -16,7 +16,7 @@ var deaths = {
             "groupby":["gender", {"timeUnit":"year","field":"deathdate"}]
         }
     ],
-    "hconcat": [
+    "vconcat": [
         {
             "mark":{
                 "type":"bar",
