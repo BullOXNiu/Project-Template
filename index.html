@@ -32,6 +32,10 @@
 		</style>
 
 		<style>
+			#temp {
+				margin-left: 30%;
+			}
+
 			li {
 				font-size: 15px;
 				font-weight: normal;
@@ -385,6 +389,7 @@
 								<!-- Content 21 -->
 									<section class="pt-80 pb-60 bg-light content_21">
 										<div class="container px-xl-0">
+											<p class="text-center">Select years to see details</p>
 											<div class="row justify-content-center">
 												<div id="deaths"> DEATHS</div>
 											
@@ -425,6 +430,24 @@
 											</div>
 										</section>
 										<!-- Content 21 -->
+											<section class="pt-30 pb-45 bg-dark content_7">
+												<div class="container px-xl-0">
+													<div class="row justify-content-center text-center color-white">
+														<div class="col-lg-8 col-md-10">
+															<div class="semibold text-uppercase sp-20 f-20" data-aos="zoom-in" data-aos-delay="0">
+																The Syrian Refugee Migration Map
+															</div>
+															<div class="mt-15 f-22 text-left" data-aos="zoom-in" data-aos-delay="250">
+																<ul>
+																	<li>All the Syrian Refugees have scattered in the countries surrounding Syria</li>
+																	<li>Most displaced Syrians are in the Middle East, some are in Europe</li>
+
+																</ul>
+															</div>
+														</div>
+													</div>
+												</div>
+											</section>
 											<section class="pt-80 pb-60 bg-light content_21">
 												<div class="container px-xl-0">
 													<div class="row justify-content-center">
@@ -440,10 +463,48 @@
 												</div>
 											</section>
 											<!-- Blog 14 -->
+												<section class="pt-30 pb-45 bg-dark content_7">
+													<div class="container px-xl-0">
+														<div class="row justify-content-center text-center color-white">
+															<div class="col-lg-8 col-md-10">
+																<div class="semibold text-uppercase sp-20 f-32" data-aos="zoom-in" data-aos-delay="0">
+																	Conclusion
+																</div>
+															</div>
+														</div>
+													</div>
+												</section>
+												<div class="mt-4 mt-md-0 col-12 col-md-5" id="temp">
+													<h4 class="mb-25 f-34" data-aos="zoom-in" data-aos-delay="500">
+														Intuition behind project
+													</h4>
+													<p>The refugee situation around the world, according to UNHCR, is affecting about one percent of humanity – 1 in every 97 people – and the number is growing by the year.
+														Over the past decade, over 100 million people have been displaced from their countries of origin and the majority of them were not able to return home and were forcefully settled somewhere else.
+														</p>
+													<p>After much debate and consideration, our team has decided to dedicate our final project to presenting the history, the current situation as well as the impact of this ongoing event, which is the largest refugee and displacement crisis of our time that is still affecting about 17.6 million Syrians and numerous countries involved.</p>
+													<p>We believe that this project allows for a good educational and informational opportunity for us to present some critical data, using the various carefully crafted visualizations, to tell our audience a story about these people who were/are forced to leave their home due to endless violence and collapsed infrastructure spiraled off the Syrian Civil War, a war that has destroyed too many lives and families.</p>
+
+													<h4 class="mb-25 f-34" data-aos="zoom-in" data-aos-delay="500">
+														Data
+													</h4>
+													<p>The data source for this project was hard to come by as there were not too many options regarding the refugee situation. As a result, the main dataset we consulted came from the <a href=’https://www.unhcr.org/refugee-statistics/download/?url=7gPA’ target=’_blank’> United Nations High Commissioner for Refugees (UNHCR) </a> as it provided a comprehensive database on the number of refugees in each country over the years. We also utilized the <a href=’https://data.world/polymathic/casualties-of-the-syrian-civil-war’ target=’_blank’> "Casualties of the Syrian Civil War”</a> dataset from data.world and it presented detailed information on those who suffered from the Syrian Civil War. In addition, we consulted <a href=’https://acleddata.com/curated-data-files/’ target=’_blank’> The Armed Conflict Location & Event Data Project (ACLED) </a> for its data on the conflicts in the Middle East region over the past 5 years. </p>
+													<p>We used Python and its library “pandas” to modify and clean the data we obtained from the websites. Specifically, we needed to extract the countries that were going to appear in our graphs and limit the date range on the data to fit our visualizations. Otherwise, the datasets were generally usable in the forms that we downloaded them as we could perform more data selection in D3.js and Vega-Lite.</p>
+													
+													<h4 class="mb-25 f-34" data-aos="zoom-in" data-aos-delay="500">
+														Design Process
+													</h4>
+													<p>The design for our graphs is simple as we were operating on the limitation of our datasets. As a result, simple visualizations such as line charts and bar charts were featured in the project. A map was also destined to be one of our visualizations as the most effective way of communicating data for each country as to how many refugees are currently living there.</p>
+
+													<h4 class="mb-25 f-34" data-aos="zoom-in" data-aos-delay="500">
+														Challenges Faced
+													</h4>
+													<p>One significant hurdle of this project was to locate reliable and usable sources of data as we spent hours searching for more data that would allow us to create more variety of graphs. As a result, the scope of the project is limited by the data we were able to obtain so in the end, while we wanted to go for a more story driven narrative, we could not come up with the corresponding visualizations for it. Moreover, breaking the barriers of the “normal” types of visualizations was a tough task for us as we struggled to come up with “innovative” solutions. Again, this may well have been due to the lack of data but we have certainly gained immense appreciation for the glorious and aesthetically-pleasing visualizations that we see on the internet.</p>
+
+												</div>
 												<section class="pt-100 pb-100 bg-light blog_14">
 													<div class="container px-xl-0">
 														<div class="mb-60 row justify-content-between align-items-end align-items-xl-start">
-															<h2 class="col-md-8 text-adaptive" data-aos="zoom-in" data-aos-delay="0">
+															<h2 class="col-md-8 text-adaptive f-28" data-aos="zoom-in" data-aos-delay="0">
 																While millions are suffering, there seems to be no end of this crisis as numbers of refugees continues to grow.
 															</h2>
 															<div class="mt-40 mt-md-0 col-md-4 col-xl-3 px-xl-0 d-flex justify-content-end" data-aos="zoom-in" data-aos-delay="250">
